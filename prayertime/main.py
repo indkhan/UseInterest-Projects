@@ -20,4 +20,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        try:
+            main()
+            break
+        except:
+            print("enter a valid city and country")
+            
