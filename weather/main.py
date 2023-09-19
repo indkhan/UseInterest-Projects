@@ -1,6 +1,6 @@
-import apikey
+import allapi
 import requests
-api = apikey.api_key
+api =allapi.weatherapi
 
 def weatherreport(city):
 
