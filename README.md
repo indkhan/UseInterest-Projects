@@ -1,2 +1,8 @@
 # usefulproj
-this folder has a few really useful projects
+this folder has projects which i find useful in my life.
+This includes 
+1. A weather checker
+2. PDF projects like merger and pdf to audible
+3. Image prohects like background remover
+4. A Password generator
+.......And much more
