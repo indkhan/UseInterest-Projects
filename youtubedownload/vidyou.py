@@ -21,7 +21,7 @@ pathvid = r"C:\Users\mgsuk\Videos\Youtube"
 pathaud = r"C:\Users\mgsuk\Music"
 
 if va == "vid":
-    functions.viddown(url, pathvid)
+    functions.viddown(url, pathvid, res)
 elif va == "aud":
     functions.auddown(url, pathaud)
 

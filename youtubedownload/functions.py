@@ -3,7 +3,7 @@ import sys
 import string
 
 
-def viddown(url, path, res="360p"):
+def viddown(url, path="", res="720p"):
     yt = pytube.YouTube(url)
     title = yt.title.split()
     vidna = "".join(title[0:4])
@@ -21,18 +21,23 @@ def viddown(url, path, res="360p"):
     # except:
     #    res = input(f"enter res between {reslist}:   ")
     stream = yt.streams.filter(res=res, progressive=True).first()
-    out = path
+
     # download video
     try:
-        stream.download(output_path=out, filename=f"{vidname}.mp4")
-        print("done")
+        if path != "":
+            out = path
+            stream.download(output_path=out, filename=f"{vidname}.mp4")
+            print("done")
+        else:
+            stream.download(filename=f"{vidname}.mp4")
+            print("done")
 
     except Exception as err:
         print(err)
         print("error")
 
 
-def auddown(url, path):
+def auddown(url, path=""):
     yt = pytube.YouTube(url)
     title = yt.title.split()
     vidna = "".join(title[0:4])
@@ -42,10 +47,14 @@ def auddown(url, path):
     print(vidname)
     stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
 
-    out = path
     # download video
     try:
-        stream.download(output_path=out, filename=f"{vidname}.mp3")
-        print("done")
+        if path != "":
+            out = path
+            stream.download(output_path=out, filename=f"{vidname}.mp3")
+            print("done")
+        else:
+            stream.download(filename=f"{vidname}.mp3")
+            print("done")
     except:
         print("error")
