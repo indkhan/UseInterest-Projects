@@ -1,4 +1,3 @@
-
 import pytube
 import sys
 import os
@@ -22,7 +21,7 @@ except:
 
 p = pytube.Playlist(playlist_url)
 
-print(f'Downloading: {p.title}')
+print(f"Downloading: {p.title}")
 for url in p.video_urls:
     try:
         yt = pytube.YouTube(url)
@@ -42,15 +41,14 @@ for url in p.video_urls:
         elif playaudvid == "aud":
             if not os.path.exists(rf"C:\Users\mgsuk\Music"):
                 os.makedirs(rf"C:\Users\mgsuk\Music")
-            stream = yt.streams.filter(
-                only_audio=True, file_extension='mp4').first()
+            stream = yt.streams.filter(only_audio=True, file_extension="mp4").first()
 
-            out = rf"C:\Users\mgsuk\Music\{p.title}"
+            out = rf"C:\Users\mgsuk\Music"
 
-            stream.download(output_path=out, filename=f"{title[0]}.mp3")
+            stream.download(output_path=out, filename=f"{title[0].replace(",", "")}.mp3")
 
         print(f"downloaded {title[0]}")
 
     except Exception as e:
-        print(f'Error Downloading: {url}')
+        print(f"Error Downloading: {url}")
         print(e)
