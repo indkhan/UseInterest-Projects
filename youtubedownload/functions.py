@@ -1,7 +1,13 @@
 import pytube
 import sys
 import string
+from datetime import datetime
 
+# Get the current date and time
+now = datetime.now()
+
+# Format the date and time as a string
+timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 def viddown(url, path="", res="720p"):
     yt = pytube.YouTube(url)
@@ -26,10 +32,10 @@ def viddown(url, path="", res="720p"):
     try:
         if path != "":
             out = path
-            stream.download(output_path=out, filename=f"{vidname}.mp4")
+            stream.download(output_path=out, filename=f"{vidname}{timestamp}.mp4")
             print("done")
         else:
-            stream.download(filename=f"{vidname}.mp4")
+            stream.download(filename=f"{vidname}{timestamp}.mp4")
             print("done")
 
     except Exception as err:
@@ -51,10 +57,10 @@ def auddown(url, path=""):
     try:
         if path != "":
             out = path
-            stream.download(output_path=out, filename=f"{vidname}.mp3")
+            stream.download(output_path=out, filename=f"{vidname}{timestamp}.mp3")
             print("done")
         else:
-            stream.download(filename=f"{vidname}.mp3")
+            stream.download(filename=f"{vidname}{timestamp}.mp3")
             print("done")
     except:
         print("error")

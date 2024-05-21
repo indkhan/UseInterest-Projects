@@ -1,7 +1,13 @@
 import pytube
 import sys
 import os
+from datetime import datetime
 
+# Get the current date and time
+now = datetime.now()
+
+# Format the date and time as a string
+timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 # get playlist url
 try:
     playaudvid = sys.argv[1]
@@ -35,8 +41,8 @@ for url in p.video_urls:
 
             out = rf"C:\Users\mgsuk\Videos\Youtube"
 
-            stream.download(output_path=out, filename=f"{title[0]}.mp4")
-            print(f"downloaded {title[0]}")
+            stream.download(output_path=out, filename=f"{title[2]}{timestamp}.mp4")
+            print(f"downloaded {title[2]}")
 
         elif playaudvid == "aud":
             if not os.path.exists(rf"C:\Users\mgsuk\Music"):
@@ -45,7 +51,7 @@ for url in p.video_urls:
 
             out = rf"C:\Users\mgsuk\Music"
 
-            stream.download(output_path=out, filename=f"{title[0].replace(",", "")}.mp3")
+            stream.download(output_path=out, filename=f"{title[2].replace(",", "")}{timestamp}.mp3")
 
         print(f"downloaded {title[0]}")
 
