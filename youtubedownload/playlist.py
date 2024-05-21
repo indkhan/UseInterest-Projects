@@ -1,13 +1,8 @@
+import re
 import pytube
 import sys
 import os
-from datetime import datetime
 
-# Get the current date and time
-now = datetime.now()
-
-# Format the date and time as a string
-timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 # get playlist url
 try:
     playaudvid = sys.argv[1]
@@ -24,6 +19,17 @@ try:
 except:
     playlist_url = input("enter url :   ")
 
+def clean_youtube_title(title):
+    # Remove leading/trailing whitespace
+    #title = title.strip()
+
+    # Replace multiple spaces with a single underscore
+    title = re.sub(r'\s+', '_', title)
+
+    # Remove invalid characters for filenames
+    title = re.sub(r'[^a-zA-Z0-9_\-\.]', '', title)
+
+    return title
 
 p = pytube.Playlist(playlist_url)
 
@@ -32,6 +38,8 @@ for url in p.video_urls:
     try:
         yt = pytube.YouTube(url)
         title = yt.title.split()
+        title_str = ''.join(title)
+        cleantitle = clean_youtube_title(title_str)
         if playaudvid == "vid":
 
             if not os.path.exists(rf"C:\Users\mgsuk\Videos\Youtube"):
@@ -41,19 +49,21 @@ for url in p.video_urls:
 
             out = rf"C:\Users\mgsuk\Videos\Youtube"
 
-            stream.download(output_path=out, filename=f"{title[2]}{timestamp}.mp4")
-            print(f"downloaded {title[2]}")
+            print(f"downloading {cleantitle}")
+            stream.download(output_path=out, filename=f"{cleantitle}.mp4")
 
         elif playaudvid == "aud":
             if not os.path.exists(rf"C:\Users\mgsuk\Music"):
                 os.makedirs(rf"C:\Users\mgsuk\Music")
+
             stream = yt.streams.filter(only_audio=True, file_extension="mp4").first()
 
             out = rf"C:\Users\mgsuk\Music"
 
-            stream.download(output_path=out, filename=f"{title[2].replace(",", "")}{timestamp}.mp3")
+            print(f"downloading {cleantitle}")
+            stream.download(output_path=out, filename=f"{cleantitle}.mp3")
 
-        print(f"downloaded {title[0]}")
+        print(f"downloaded {cleantitle}")
 
     except Exception as e:
         print(f"Error Downloading: {url}")
